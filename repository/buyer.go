@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// Base struct Buyer Repo
+// Base Buyer Repo
 type BuyerRepo struct {
 }
 

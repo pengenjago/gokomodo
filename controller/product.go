@@ -15,8 +15,9 @@ var productController *ProductController
 var productSvc *service.ProductSvc
 
 func InitProductController() {
-	GET("/products", productController.findAll, Allow("Buyer", "Seller"))
-	GET("/my-products", productController.myProduct, Allow("Seller"))
+	GET("/products", productController.findAll, Allow(Buyer, Seller))
+	GET("/my-products", productController.myProduct, Allow(Seller))
+	POST("/product", productController.create, Allow(Seller))
 }
 
 func (o *ProductController) findAll(c echo.Context) error {
@@ -50,6 +51,22 @@ func (o *ProductController) myProduct(c echo.Context) error {
 
 	if err == nil {
 		return pagedRes(c, data, pageNo, pageSize, int(total))
+	}
+
+	return invalidRequest(c, err)
+}
+
+func (o *ProductController) create(c echo.Context) error {
+
+	var data dto.ProductReq
+	err := c.Bind(&data)
+
+	if err == nil {
+		res, err := productSvc.Create(&data, getUserAuth(c))
+
+		if err == nil {
+			return c.JSON(StatusOK, ResponseData{Status: StatusOK, Message: Success, Data: res})
+		}
 	}
 
 	return invalidRequest(c, err)

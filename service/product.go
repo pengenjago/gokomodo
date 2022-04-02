@@ -13,17 +13,34 @@ func (o *ProductSvc) FindAll(param *dto.ProductQuery) ([]dto.ProductRes, int64, 
 
 	var products []dto.ProductRes
 	for _, val := range data {
-		product := dto.ProductRes{
-			Id:          val.ID,
-			ProductName: val.ProductName,
-			Description: val.Description,
-			Price:       val.Price,
-			SellerId:    val.Seller.ID,
-			SellerName:  val.Seller.Name,
-		}
-
-		products = append(products, product)
+		products = append(products, val.ToResponse())
 	}
 
 	return products, total, err
+}
+
+func (o *ProductSvc) GetBydID(id string) dto.ProductRes {
+
+	data := repository.GetProductRepo().GetById(id)
+
+	return data.ToResponse()
+}
+
+func (o *ProductSvc) Create(param *dto.ProductReq, userAuth *dto.UserAuth) (dto.ProductRes, error) {
+	var res dto.ProductRes
+
+	data := repository.Product{
+		ProductName: param.ProductName,
+		Description: param.Description,
+		Price:       param.Price,
+		SellerId:    userAuth.Id,
+	}
+
+	err := repository.GetProductRepo().Create(&data)
+
+	if err != nil {
+		return res, err
+	}
+
+	return o.GetBydID(data.ID), err
 }

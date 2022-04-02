@@ -10,7 +10,7 @@ type UserLogin struct {
 	LoginAs  string
 }
 
-type Token struct {
+type UserAuth struct {
 	Role  string
 	Id    string
 	Email string

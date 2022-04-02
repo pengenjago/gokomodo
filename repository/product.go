@@ -1,10 +1,12 @@
 package repository
 
 import (
+	"errors"
 	"gokomodo/config"
 	"gokomodo/dto"
 
 	"github.com/google/uuid"
+	"github.com/labstack/gommon/log"
 	"gorm.io/gorm"
 )
 
@@ -35,6 +37,17 @@ func (o *Product) BeforeCreate(db *gorm.DB) error {
 	return nil
 }
 
+func (o *Product) ToResponse() dto.ProductRes {
+
+	return dto.ProductRes{
+		Id:          o.ID,
+		ProductName: o.ProductName,
+		Description: o.Description,
+		Price:       o.Price,
+		SellerName:  o.Seller.Name,
+	}
+}
+
 func (o *ProductRepo) FindAll(query *dto.ProductQuery) ([]Product, int64, error) {
 	var data []Product
 
@@ -58,4 +71,26 @@ func (o *ProductRepo) FindAll(query *dto.ProductQuery) ([]Product, int64, error)
 	err := tx.Find(&data).Error
 
 	return data, total, err
+}
+
+func (o *ProductRepo) GetById(id string) Product {
+
+	var data Product
+
+	config.DbConn().Model(Product{}).Joins("Seller").Where(`"products".id = ?`, id).First(&data)
+
+	return data
+}
+
+func (o *ProductRepo) Create(data *Product) error {
+
+	err := config.DbConn().Create(data).Error
+
+	if err != nil {
+
+		log.Error("Error Create Product :", err.Error())
+		err = errors.New("something went wrong")
+	}
+
+	return err
 }

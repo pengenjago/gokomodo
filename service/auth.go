@@ -61,9 +61,9 @@ func (o *AuthSvc) Login(param dto.UserLogin) (*dto.LoginRes, error) {
 	return nil, err
 }
 
-func (o *AuthSvc) ValidateToken(accessToken string) (*dto.Token, error) {
+func (o *AuthSvc) ValidateToken(accessToken string) (*dto.UserAuth, error) {
 
-	var ret *dto.Token
+	var ret *dto.UserAuth
 	parser := new(jwt.Parser)
 
 	token, err := parser.Parse(accessToken, func(token *jwt.Token) (interface{}, error) {
@@ -77,7 +77,7 @@ func (o *AuthSvc) ValidateToken(accessToken string) (*dto.Token, error) {
 	if err == nil {
 		mapClaim := token.Claims.(jwt.MapClaims)
 
-		ret = &dto.Token{
+		ret = &dto.UserAuth{
 			Role:  mapClaim["role"].(string),
 			Id:    mapClaim["uid"].(string),
 			Email: mapClaim["email"].(string),

@@ -5,7 +5,6 @@ type ProductRes struct {
 	ProductName string `json:"productName"`
 	Description string `json:"description"`
 	Price       int    `json:"price"`
-	SellerId    string `json:"sellerId"`
 	SellerName  string `json:"sellerName"`
 }
 
@@ -14,4 +13,10 @@ type ProductQuery struct {
 	SellerId string
 	PageNo   int
 	PageSize int
+}
+
+type ProductReq struct {
+	ProductName string `json:"productName"`
+	Description string `json:"description"`
+	Price       int    `json:"price"`
 }

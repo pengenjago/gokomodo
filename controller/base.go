@@ -2,6 +2,7 @@ package controller
 
 import (
 	"gokomodo/config"
+	"gokomodo/dto"
 	"gokomodo/repository"
 	"net/http"
 	"strings"
@@ -24,6 +25,12 @@ const (
 	Success string = "Success"
 
 	InvalidReq string = "Inavalid Request"
+
+	// Role Seller
+	Seller string = "Seller"
+
+	// Role Buyer
+	Buyer string = "Buyer"
 )
 
 func Start() {
@@ -159,6 +166,15 @@ func Allow(roleList ...string) echo.MiddlewareFunc {
 
 			return c.JSON(StatusUnauthorized, Response{Status: StatusUnauthorized, Message: "access is not allowed"})
 		}
+	}
+}
+
+// Get User Auth
+func getUserAuth(c echo.Context) *dto.UserAuth {
+	return &dto.UserAuth{
+		Id:    c.Request().Header.Get("Uid"),
+		Role:  c.Request().Header.Get("Role"),
+		Email: c.Request().Header.Get("Email"),
 	}
 }
 
