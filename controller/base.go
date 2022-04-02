@@ -24,7 +24,7 @@ const (
 
 	Success string = "Success"
 
-	InvalidReq string = "Inavalid Request"
+	InvalidReq string = "Invalid Request"
 
 	// Role Seller
 	Seller string = "Seller"
@@ -73,6 +73,7 @@ func RouteController() {
 
 	InitAuthController()
 	InitProductController()
+	InitOrderController()
 }
 
 // Generate Table

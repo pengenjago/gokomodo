@@ -66,6 +66,8 @@ func (o *ProductController) create(c echo.Context) error {
 
 		if err == nil {
 			return c.JSON(StatusOK, ResponseData{Status: StatusOK, Message: Success, Data: res})
+		} else {
+			return invalidRequest(c, err)
 		}
 	}
 
