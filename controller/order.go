@@ -47,7 +47,7 @@ func (o *OrderController) findAll(c echo.Context) error {
 
 func (o *OrderController) create(c echo.Context) error {
 
-	var data dto.OrderReq
+	var data []dto.OrderReq
 	err := c.Bind(&data)
 
 	if err == nil {

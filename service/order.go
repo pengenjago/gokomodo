@@ -34,36 +34,39 @@ func (o *OrderSvc) GetBydID(id string) dto.OrderRes {
 	return data.ToResponse()
 }
 
-func (o *OrderSvc) Create(param dto.OrderReq, userAuth *dto.UserAuth) (dto.OrderRes, error) {
+func (o *OrderSvc) Create(orders []dto.OrderReq, userAuth *dto.UserAuth) ([]dto.OrderRes, error) {
 
-	var res dto.OrderRes
+	var res []dto.OrderRes
+	var err error
 
-	if param.ProductId == "" {
-		return res, errors.New("product cannot be empty")
+	for _, param := range orders {
+		if param.ProductId == "" {
+			return res, errors.New("product cannot be empty")
+		}
+
+		product := repository.GetProductRepo().GetById(param.ProductId)
+
+		if product.ID == "" {
+			return res, errors.New("product not found")
+		}
+
+		data := repository.Order{
+			BuyerId:    userAuth.Id,
+			SellerId:   product.SellerId,
+			ProductId:  product.ID,
+			Quantity:   param.Quantity,
+			Status:     Pending,
+			TotalPrice: param.Quantity * product.Price,
+		}
+
+		err = repository.GetOrderRepo().Create(&data)
+
+		if err == nil {
+			res = append(res, o.GetBydID(data.ID))
+		}
 	}
 
-	product := repository.GetProductRepo().GetById(param.ProductId)
-
-	if product.ID == "" {
-		return res, errors.New("product not found")
-	}
-
-	data := repository.Order{
-		BuyerId:    userAuth.Id,
-		SellerId:   product.SellerId,
-		ProductId:  product.ID,
-		Quantity:   param.Quantity,
-		Status:     Pending,
-		TotalPrice: param.Quantity * product.Price,
-	}
-
-	err := repository.GetOrderRepo().Create(&data)
-
-	if err != nil {
-		return res, err
-	}
-
-	return o.GetBydID(data.ID), err
+	return res, err
 }
 
 func (o *OrderSvc) ConfirmOrder(orderId string, userAuth *dto.UserAuth) error {
