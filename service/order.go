@@ -78,7 +78,7 @@ func (o *OrderSvc) ConfirmOrder(orderId string, userAuth *dto.UserAuth) error {
 	}
 
 	if order.Status != Pending {
-		return errors.New("only status pending can be confirm")
+		return errors.New("order already confirm")
 	}
 
 	order.Status = Accepted

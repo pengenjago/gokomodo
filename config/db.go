@@ -14,6 +14,9 @@ import (
 
 func DbConn() *gorm.DB {
 	dsn := util.GetStringProperties("app.db.dsn")
+	if dsn == "" {
+		dsn = os.Getenv("app.db.dsn")
+	}
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer

@@ -15,7 +15,6 @@ func readPropertiesFile() (AppConfigProperties, error) {
 
 	file, err := os.Open("application.properties")
 	if err != nil {
-		log.Fatal(err)
 		return nil, err
 	}
 	defer file.Close()
