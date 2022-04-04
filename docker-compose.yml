@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    container_name: gokomodo_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - gokomodo-postgres
+    networks:
+      - gokomodo-network
+
+  gokomodo-postgres:
+    image: postgres:latest
+    container_name: gokomodo_db_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=t_gokomodo
+      - POSTGRES_HOST=gokomodo-postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - gokomodo-network
+
+
+volumes:
+  api:
+  database_postgres:
+
+
+networks:
+  gokomodo-network:
+    driver: bridge
