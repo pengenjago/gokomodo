@@ -1,7 +1,15 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "Gokomodo Backend Technical Assessment API",
+        "contact": {
+            "name": "API Support"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
     },
     "paths": {
         "/auth/login": {
@@ -27,6 +35,12 @@
                         "schema": {
                             "$ref": "#/definitions/dto.UserLogin"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Login As Seller or Buyer. e.g : /auth/login?as=seller",
+                        "name": "as",
+                        "in": "query"
                     }
                 ],
                 "responses": {

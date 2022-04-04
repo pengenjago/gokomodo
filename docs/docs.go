@@ -10,7 +10,13 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "API Support"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -39,6 +45,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dto.UserLogin"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Login As Seller or Buyer. e.g : /auth/login?as=seller",
+                        "name": "as",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -565,11 +577,11 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
+	Title:            "Gokomodo Backend Technical Assessment API",
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
