@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"fmt"
 	"gokomodo/config"
 	"gokomodo/dto"
 	"gokomodo/repository"
+	"gokomodo/util"
 	"net/http"
 	"strings"
 	"time"
@@ -46,7 +48,7 @@ func Start() {
 	e.Use(middleware.Recover())
 
 	// Start server
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", util.GetIntProperties("app.server.port"))))
 }
 
 func InitEcho() {
@@ -69,7 +71,7 @@ func InitEcho() {
 // RouteController
 func RouteController() {
 	// Routes
-	e.GET("/index", index)
+	e.GET("/", index)
 
 	InitAuthController()
 	InitProductController()
@@ -180,7 +182,7 @@ func getUserAuth(c echo.Context) *dto.UserAuth {
 }
 
 func index(c echo.Context) error {
-	return c.JSON(http.StatusOK, time.Now().Format(time.RFC822))
+	return c.JSON(http.StatusOK, time.Now().Format("02/01/2006 15:04"))
 }
 
 //GET is
