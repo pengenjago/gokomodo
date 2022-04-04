@@ -121,6 +121,7 @@ paths:
       - description: 'Login As Seller or Buyer. e.g : /auth/login?as=seller'
         in: query
         name: as
+        required: true
         type: string
       produces:
       - application/json

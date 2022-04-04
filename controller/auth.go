@@ -26,7 +26,7 @@ func InitAuthController() {
 // @Accept  json
 // @Produce  json
 // @Param data body dto.UserLogin true "request"
-// @Param as query string optional "Login As Seller or Buyer. e.g : /auth/login?as=seller"
+// @Param as query string true "Login As Seller or Buyer. e.g : /auth/login?as=seller"
 // @Success 200 {object} ResponseData{data=dto.LoginRes}
 // @Router /auth/login [post]
 func (o *AuthController) login(c echo.Context) error {

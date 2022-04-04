@@ -50,7 +50,8 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Login As Seller or Buyer. e.g : /auth/login?as=seller",
                         "name": "as",
-                        "in": "query"
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
