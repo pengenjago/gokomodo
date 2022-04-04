@@ -20,6 +20,18 @@ func InitProductController() {
 	POST("/product", productController.create, Allow(Seller))
 }
 
+// Findall godoc
+// @Tags Products
+// @Summary Get Products
+// @Description Get All Products
+// @ID get-all-products
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param pageNo query string optional "Page No"
+// @Param pageSize query string optional "Page Size"
+// @Param search query string optional "Search Product"
+// @Success 200 {object} ResponsePaged{data=[]dto.ProductRes}
+// @Router /products [get]
 func (o *ProductController) findAll(c echo.Context) error {
 	pageNo, _ := strconv.Atoi(c.QueryParam("pageNo"))
 	pageSize, _ := strconv.Atoi(c.QueryParam("pageSize"))
@@ -37,6 +49,18 @@ func (o *ProductController) findAll(c echo.Context) error {
 	return invalidRequest(c, err)
 }
 
+// Findall godoc
+// @Tags Products
+// @Summary Get My Products
+// @Description Get My Products as Seller
+// @ID get-my-products
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param pageNo query string optional "Page No"
+// @Param pageSize query string optional "Page Size"
+// @Param search query string optional "Search Product"
+// @Success 200 {object} ResponsePaged{data=[]dto.ProductRes}
+// @Router /my-products [get]
 func (o *ProductController) myProduct(c echo.Context) error {
 
 	pageNo, _ := strconv.Atoi(c.QueryParam("pageNo"))
@@ -56,6 +80,17 @@ func (o *ProductController) myProduct(c echo.Context) error {
 	return invalidRequest(c, err)
 }
 
+// Create godoc
+// @Tags Products
+// @Summary Create Product
+// @Description Create Product by Seller
+// @ID create-product
+// @Accept  json
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param data body dto.ProductReq true "request"
+// @Success 200 {object} ResponseData{data=[]dto.ProductRes}
+// @Router /product [post]
 func (o *ProductController) create(c echo.Context) error {
 
 	var data dto.ProductReq

@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "655fe6f8-f1fd-4866-a3c8-fc54c6ade041",
+		"name": "T-Gokomodo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"budiman@gmail.com\",\r\n    \"password\": \"Buyer123!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/login?as=buyer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "as",
+							"value": "buyer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3RoaW5nQGdtYWlsLmNvbSIsImV4cCI6MTY0OTA4MjA4MywiaWF0IjoxNjQ4OTk1NjgzLCJuYW1lIjoiVG9rbyBNdXJhaCBNZXJpYWgiLCJyb2xlIjoiU2VsbGVyIiwidWlkIjoiOTlhZGU3NmMtZGM2Zi00OWIyLThjMjctZjQxYmJhY2EzNTI4In0.XzWGEY6okVpvy3hoQqr2U8EpG-NkR-iQpHkYEaU0rsI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products?pageNo=1&pageSize=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJ1ZGltYW5AZ21haWwuY29tIiwiZXhwIjoxNjQ5MDgyMzAwLCJpYXQiOjE2NDg5OTU5MDAsIm5hbWUiOiJidWR6Iiwicm9sZSI6IkJ1eWVyIiwidWlkIjoiYTI3NGZmMzAtOWMxOC00Y2E5LWIzYWEtOWY1ZjhhZmM5YmE5In0.Wrb9LPqf3zLEXagGCLyRwQB727Mq7V7s80xy-AKCq1Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/my-products?pageNo=1&pageSize=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"my-products"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3RoaW5nQGdtYWlsLmNvbSIsImV4cCI6MTY0ODk4MTUxMiwiaWF0IjoxNjQ4ODk1MTEyLCJuYW1lIjoiVG9rbyBCYWp1IE11cmFoIE1lcmlhaCIsInJvbGUiOiJTZWxsZXIiLCJ1aWQiOiI5OWFkZTc2Yy1kYzZmLTQ5YjItOGMyNy1mNDFiYmFjYTM1MjgifQ.7UUWpyD3LOmmSdnNoYvGvmwlOUQ_23o337UsIhTen8M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Mens Cotton Jacket\",\r\n    \"description\": \"Great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.\",\r\n    \"price\": 804657\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/product",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpcm1hbmVscHJpQGdtYWlsLmNvbSIsImV4cCI6MTY0ODk4MjIyNCwiaWF0IjoxNjQ4ODk1ODI0LCJuYW1lIjoiTWFhbnoiLCJyb2xlIjoiQnV5ZXIiLCJ1aWQiOiI3MzZiMTFiYi05OWI4LTQ5ZWUtYjQ4ZC02OTM3ZjY1NzRjYzUifQ.6C1YQpX3TCeslrxfvYBMduh_t5sWTDebPpQJgt-LMGQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"productId\": \"400ecf9e-e3e2-4e69-904c-b1b494c6105a\",\r\n        \"quantity\": 1\r\n    },\r\n    {\r\n        \"productId\": \"44a6c61a-e820-4eea-bfea-13adffcbdad8\",\r\n        \"quantity\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/order",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3RoaW5nQGdtYWlsLmNvbSIsImV4cCI6MTY0ODk4MzA0MSwiaWF0IjoxNjQ4ODk2NjQxLCJuYW1lIjoiVG9rbyBNdXJhaCBNZXJpYWgiLCJyb2xlIjoiU2VsbGVyIiwidWlkIjoiOTlhZGU3NmMtZGM2Zi00OWIyLThjMjctZjQxYmJhY2EzNTI4In0.QYSiSkN7P9PD1E66Ept6DBapb8h2P93k4Fxsxc7s6Ng",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/confirm-order/d2081fd9-8324-4c9c-aedd-4e4b5ec8a34c",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"confirm-order",
+						"d2081fd9-8324-4c9c-aedd-4e4b5ec8a34c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsb3RoaW5nQGdtYWlsLmNvbSIsImV4cCI6MTY0ODk4MzA0MSwiaWF0IjoxNjQ4ODk2NjQxLCJuYW1lIjoiVG9rbyBNdXJhaCBNZXJpYWgiLCJyb2xlIjoiU2VsbGVyIiwidWlkIjoiOTlhZGU3NmMtZGM2Zi00OWIyLThjMjctZjQxYmJhY2EzNTI4In0.QYSiSkN7P9PD1E66Ept6DBapb8h2P93k4Fxsxc7s6Ng",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/my-orders",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"my-orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

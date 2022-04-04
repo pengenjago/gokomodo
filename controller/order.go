@@ -20,6 +20,17 @@ func InitOrderController() {
 	PUT("/confirm-order/:id", orderController.confirm, Allow(Seller))
 }
 
+// Findall godoc
+// @Tags Orders
+// @Summary Get My Orders
+// @Description Get My Orders
+// @ID get-my-orders
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param pageNo query string optional "Page No"
+// @Param pageSize query string optional "Page Size"
+// @Success 200 {object} ResponsePaged{data=[]dto.OrderRes}
+// @Router /my-orders [get]
 func (o *OrderController) findAll(c echo.Context) error {
 	pageNo, _ := strconv.Atoi(c.QueryParam("pageNo"))
 	pageSize, _ := strconv.Atoi(c.QueryParam("pageSize"))
@@ -45,6 +56,17 @@ func (o *OrderController) findAll(c echo.Context) error {
 	return invalidRequest(c, err)
 }
 
+// Create godoc
+// @Tags Orders
+// @Summary Create Orders
+// @Description Create Orders by Buyer
+// @ID create-orders
+// @Accept  json
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param data body dto.OrderReq true "request"
+// @Success 200 {object} ResponseData{data=[]dto.OrderRes}
+// @Router /order [post]
 func (o *OrderController) create(c echo.Context) error {
 
 	var data []dto.OrderReq
@@ -63,6 +85,18 @@ func (o *OrderController) create(c echo.Context) error {
 	return invalidRequest(c, err)
 }
 
+// Update godoc
+// @Tags Orders
+// @Summary Cofirm Orders
+// @Description Confirm Orders by Seller
+// @ID confirm-orders
+// @Accept  json
+// @Produce json
+// @Param Authorization header string true "Authorization"
+// @Param data body dto.OrderReq true "request"
+// @Param id path string true "id orders"
+// @Success 200 {object} Response{}
+// @Router /confirm-order/{id} [put]
 func (o *OrderController) confirm(c echo.Context) error {
 
 	err := orderSvc.ConfirmOrder(c.Param("id"), getUserAuth(c))

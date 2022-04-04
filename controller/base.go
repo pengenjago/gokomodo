@@ -13,6 +13,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/cors"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 var e *echo.Echo
@@ -46,6 +47,8 @@ func Start() {
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// Start server
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", util.GetIntProperties("app.server.port"))))

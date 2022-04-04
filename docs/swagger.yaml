@@ -1,0 +1,346 @@
+definitions:
+  controller.Response:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  controller.ResponseData:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  controller.ResponsePaged:
+    properties:
+      data: {}
+      message:
+        type: string
+      pageNo:
+        type: integer
+      pageSize:
+        type: integer
+      pageTotal:
+        type: integer
+      status:
+        type: integer
+      totalRecord:
+        type: integer
+    type: object
+  dto.LoginRes:
+    properties:
+      accessToken:
+        type: string
+    type: object
+  dto.OrderReq:
+    properties:
+      productId:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  dto.OrderRes:
+    properties:
+      buyerName:
+        type: string
+      destinationAddress:
+        type: string
+      id:
+        type: string
+      pickupAddress:
+        type: string
+      price:
+        type: integer
+      productName:
+        type: string
+      quantity:
+        type: integer
+      sellerName:
+        type: string
+      status:
+        type: string
+      totalPrice:
+        type: integer
+    type: object
+  dto.ProductReq:
+    properties:
+      description:
+        type: string
+      price:
+        type: integer
+      productName:
+        type: string
+    type: object
+  dto.ProductRes:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      price:
+        type: integer
+      productName:
+        type: string
+      sellerName:
+        type: string
+    type: object
+  dto.UserLogin:
+    properties:
+      email:
+        type: string
+      loginAs:
+        type: string
+      password:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: User Login
+      operationId: post-user-login
+      parameters:
+      - description: request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponseData'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.LoginRes'
+              type: object
+      summary: login
+      tags:
+      - Auth
+  /confirm-order/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Confirm Orders by Seller
+      operationId: confirm-orders
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.OrderReq'
+      - description: id orders
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Cofirm Orders
+      tags:
+      - Orders
+  /my-orders:
+    get:
+      description: Get My Orders
+      operationId: get-my-orders
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Page No
+        in: query
+        name: pageNo
+        type: string
+      - description: Page Size
+        in: query
+        name: pageSize
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponsePaged'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.OrderRes'
+                  type: array
+              type: object
+      summary: Get My Orders
+      tags:
+      - Orders
+  /my-products:
+    get:
+      description: Get My Products as Seller
+      operationId: get-my-products
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Page No
+        in: query
+        name: pageNo
+        type: string
+      - description: Page Size
+        in: query
+        name: pageSize
+        type: string
+      - description: Search Product
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponsePaged'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ProductRes'
+                  type: array
+              type: object
+      summary: Get My Products
+      tags:
+      - Products
+  /order:
+    post:
+      consumes:
+      - application/json
+      description: Create Orders by Buyer
+      operationId: create-orders
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.OrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponseData'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.OrderRes'
+                  type: array
+              type: object
+      summary: Create Orders
+      tags:
+      - Orders
+  /product:
+    post:
+      consumes:
+      - application/json
+      description: Create Product by Seller
+      operationId: create-product
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponseData'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ProductRes'
+                  type: array
+              type: object
+      summary: Create Product
+      tags:
+      - Products
+  /products:
+    get:
+      description: Get All Products
+      operationId: get-all-products
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Page No
+        in: query
+        name: pageNo
+        type: string
+      - description: Page Size
+        in: query
+        name: pageSize
+        type: string
+      - description: Search Product
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/controller.ResponsePaged'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ProductRes'
+                  type: array
+              type: object
+      summary: Get Products
+      tags:
+      - Products
+swagger: "2.0"
