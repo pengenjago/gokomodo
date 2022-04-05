@@ -24,5 +24,5 @@ INSERT INTO public.orders (id,created_at,updated_at,deleted_at,buyer_id,seller_i
 ('9c1b7cd4-456a-48aa-ba2d-180b949be6aa','2022-04-03 21:55:32.949','2022-04-03 21:55:32.949',NULL,'a274ff30-9c18-4ca9-b3aa-9f5f8afc9ba9','qkwoqw-dmada-2122md','400ecf9e-e3e2-4e69-904c-b1b494c6105a',1,5800000,'Pending')
 ,('258fc335-7749-4c17-a9c9-e6be948933c7','2022-04-03 22:20:11.264','2022-04-03 22:20:11.264',NULL,'a274ff30-9c18-4ca9-b3aa-9f5f8afc9ba9','qkwoqw-dmada-2122md','400ecf9e-e3e2-4e69-904c-b1b494c6105a',1,5800000,'Pending')
 ,('6ceea581-94f0-4130-8435-250756224355','2022-04-03 22:20:11.444','2022-04-03 22:20:11.444',NULL,'a274ff30-9c18-4ca9-b3aa-9f5f8afc9ba9','qkwoqw-dmada-2122md','44a6c61a-e820-4eea-bfea-13adffcbdad8',1,15000000,'Pending')
-,('bbb757d7-1bb6-46b7-b4f8-625f4d22966d','2022-04-03 21:55:33.212','2022-04-03 22:05:08.162',NULL,'a274ff30-9c18-4ca9-b3aa-9f5f8afc9ba9','qkwoqw-dmada-2122md','44a6c61a-e820-4eea-bfea-13adffcbdad8',1,15000000,'Pending')
+,('bbb757d7-1bb6-46b7-b4f8-625f4d22966d','2022-04-03 21:55:33.212','2022-04-03 22:05:08.162',NULL,'a274ff30-9c18-4ca9-b3aa-9f5f8afc9ba9','qkwoqw-dmada-2122md','44a6c61a-e820-4eea-bfea-13adffcbdad8',1,15000000,'Accepted')
 ;
