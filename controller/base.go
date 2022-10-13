@@ -36,6 +36,7 @@ const (
 	Buyer string = "Buyer"
 )
 
+// Start
 func Start() {
 
 	InitEcho()
